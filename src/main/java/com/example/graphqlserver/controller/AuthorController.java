@@ -47,4 +47,16 @@ public class AuthorController {
                .toList();
    }
 
+   @MutationMapping
+   public String updateAuthorLastName(@Argument Integer id, @Argument String newLastName) {
+       Author author = authorRepository.getAuthorById(id);
+       if (author == null) {
+           return null;
+       }
+       String oldLastName = author.getLastName();
+       author.setLastName(newLastName);
+       return oldLastName;
+   }
+
+
 }

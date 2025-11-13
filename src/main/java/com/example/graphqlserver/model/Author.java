@@ -8,7 +8,7 @@ public class Author {
 
     private int id;
     private final String firstName;
-
+    private String lastName;
     private List<Book> books = new ArrayList<>();
 
     public Author(int id, String firstName, String lastName, List<Book> books) {
@@ -18,7 +18,6 @@ public class Author {
         this.books = books;
     }
 
-    private final String lastName;
 
     public int getId() {
         return id;
@@ -43,6 +42,11 @@ public class Author {
     public void setBooks(List<Book> books) {
         this.books = books;
     }
+
+   public void setLastName(String lastName) {
+       this.lastName = lastName;
+   }
+
 
 
 }

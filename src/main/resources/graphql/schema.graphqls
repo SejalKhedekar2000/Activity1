@@ -92,3 +92,8 @@ extend type Query {
   authorsByLastName(lastName: String!): [Author]
 
 }
+extend type Mutation {
+  # Update an Author’s lastName based on the Author’s id.
+  updateAuthorLastName(id: ID!, newLastName: String!): String
+
+}

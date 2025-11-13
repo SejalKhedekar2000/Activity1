@@ -1,16 +1,17 @@
 package com.example.graphqlserver.controller;
 
-import com.example.graphqlserver.dto.input.AddAuthorInput;
-import com.example.graphqlserver.dto.output.AddAuthorPayload;
-import com.example.graphqlserver.model.Author;
-import com.example.graphqlserver.repository.AuthorRepository;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 
-import java.util.List;
+import com.example.graphqlserver.dto.input.AddAuthorInput;
+import com.example.graphqlserver.dto.output.AddAuthorPayload;
+import com.example.graphqlserver.model.Author;
+import com.example.graphqlserver.repository.AuthorRepository;
 
 @Controller
 public class AuthorController {
@@ -38,4 +39,12 @@ public class AuthorController {
         var out = new AddAuthorPayload(author);
         return out;
     }
+
+    @QueryMapping
+    public List<Author> authorsByLastName(@Argument String lastName) {
+       return authorRepository.getAuthors().stream()
+               .filter(a -> a.getLastName().equalsIgnoreCase(lastName))
+               .toList();
+   }
+
 }

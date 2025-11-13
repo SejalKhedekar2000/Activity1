@@ -85,7 +85,10 @@ extend type Query {
   # List of Books based on an authorId
   booksByAuthorId(authorId: ID!): [Book]
 
-  # List of Books based on a substring of the Title.
+  # List of Books based on a substring of the Title
   booksByTitleSubstring(substring: String!): [Book]
+
+# List of Authors based on a lastName
+  authorsByLastName(lastName: String!): [Author]
 
 }

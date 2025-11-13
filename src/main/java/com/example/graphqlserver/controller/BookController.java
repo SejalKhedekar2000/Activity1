@@ -49,7 +49,8 @@ public class BookController {
         return out;
     }
 
-   public List<Book> booksByAuthorId(@Argument Integer authorId) {
+   @QueryMapping
+public List<Book> booksByAuthorId(@Argument Integer authorId) {
     return bookRepository.getBooks().stream()
             .filter(b -> b.getAuthorId() == authorId)
             .toList();

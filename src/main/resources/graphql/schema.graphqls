@@ -88,8 +88,11 @@ extend type Query {
   # List of Books based on a substring of the Title
   booksByTitleSubstring(substring: String!): [Book]
 
-# List of Authors based on a lastName
+  # List of Authors based on a lastName
   authorsByLastName(lastName: String!): [Author]
+
+  # List of all Book titles written by Authors with a given first name.
+  bookTitlesByAuthorFirstName(firstName: String!): [String]
 
 }
 extend type Mutation {
@@ -98,6 +101,5 @@ extend type Mutation {
 
   # Delete a Book given it’s ISBN.
   deleteBookByIsbn(isbn: String!): String
-
 
 }

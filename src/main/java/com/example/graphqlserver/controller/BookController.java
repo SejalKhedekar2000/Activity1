@@ -69,5 +69,17 @@ public class BookController {
        return removed ? isbn : null;
 
 }
+   @QueryMapping
+   public List<String> bookTitlesByAuthorFirstName(@Argument String firstName) {
+       List<Integer> authorIds = authorRepository.getAuthors().stream()
+               .filter(a -> a.getFirstName().equalsIgnoreCase(firstName))
+               .map(Author::getId)
+               .toList();
 
+
+       return bookRepository.getBooks().stream()
+               .filter(b -> authorIds.contains(b.getAuthorId()))
+               .map(Book::getTitle)
+               .toList();
+   }
 }

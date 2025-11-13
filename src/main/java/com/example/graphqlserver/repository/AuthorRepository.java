@@ -1,12 +1,13 @@
 package com.example.graphqlserver.repository;
 
-import com.example.graphqlserver.model.Author;
-import com.example.graphqlserver.model.Book;
-import org.springframework.stereotype.Repository;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import org.springframework.stereotype.Repository;
+
+import com.example.graphqlserver.model.Author;
+import com.example.graphqlserver.model.Book;
 
 
 @Repository
@@ -41,4 +42,5 @@ public class AuthorRepository {
         dummyAuthors.add(newAuthor);
         return newAuthor;
     }
+    
 }

@@ -81,3 +81,8 @@ type Mutation {
     # Add a new book to the system.
     addBook(input: AddBookInput): AddBookPayload
 }
+extend type Query {
+  # List of Books based on an authorId
+  booksByAuthorId(authorId: ID!): [Book]
+
+}

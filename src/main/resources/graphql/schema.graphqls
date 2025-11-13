@@ -96,4 +96,8 @@ extend type Mutation {
   # Update an Author’s lastName based on the Author’s id.
   updateAuthorLastName(id: ID!, newLastName: String!): String
 
+  # Delete a Book given it’s ISBN.
+  deleteBookByIsbn(isbn: String!): String
+
+
 }

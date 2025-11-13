@@ -1,11 +1,12 @@
 package com.example.graphqlserver.repository;
 
-import com.example.graphqlserver.model.Book;
-import org.springframework.stereotype.Repository;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import org.springframework.stereotype.Repository;
+
+import com.example.graphqlserver.model.Book;
 
 
 @Repository
@@ -49,5 +50,10 @@ public class BookRepository {
         }
         return bookList;
     }
+
+   public boolean deleteByIsbn(String isbn) {
+       return dummyBooks.removeIf(b -> b.getIsbn().equals(isbn));
+   }
+
 
 }

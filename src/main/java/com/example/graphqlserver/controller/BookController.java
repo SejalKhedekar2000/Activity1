@@ -63,4 +63,11 @@ public class BookController {
                .toList();
    }
 
+   @MutationMapping
+   public String deleteBookByIsbn(@Argument String isbn) {
+       boolean removed = bookRepository.deleteByIsbn(isbn);
+       return removed ? isbn : null;
+
+}
+
 }

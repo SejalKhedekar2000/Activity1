@@ -50,9 +50,17 @@ public class BookController {
     }
 
    @QueryMapping
-public List<Book> booksByAuthorId(@Argument Integer authorId) {
+    public List<Book> booksByAuthorId(@Argument Integer authorId) {
     return bookRepository.getBooks().stream()
             .filter(b -> b.getAuthorId() == authorId)
             .toList();
 }
+   @QueryMapping
+   public List<Book> booksByTitleSubstring(@Argument String substring) {
+       String lower = substring.toLowerCase();
+       return bookRepository.getBooks().stream()
+               .filter(b -> b.getTitle().toLowerCase().contains(lower))
+               .toList();
+   }
+
 }

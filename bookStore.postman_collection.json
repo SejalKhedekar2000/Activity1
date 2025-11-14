@@ -161,6 +161,240 @@
 				}
 			},
 			"response": []
-		}
-	]
+		},
+		{
+      "name": "1.1 list of Books based on an authorId (Positive)",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": { "mode": "raw", "raw": "{ \"query\": \"{ booksByAuthorId(authorId: 1) { isbn title authorId } }\" }" },
+        "url": "http://localhost:8080/graphql"
+      }
+    },
+
+    {
+      "name": "1.2 No books for authorId (Negative)",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": { "mode": "raw", "raw": "{ \"query\": \"{ booksByAuthorId(authorId: 50) { isbn title authorId } }\" }" },
+        "url": "http://localhost:8080/graphql"
+      }
+    },
+
+    {
+      "name": "1.3 Missing authorId (Negative)",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": { "mode": "raw", "raw": "{ \"query\": \"{ booksByAuthorId { isbn title authorId } }\" }" },
+        "url": "http://localhost:8080/graphql"
+      }
+    },
+
+    {
+      "name": "2.1 List of Books based on a substring of the Title (Positive)",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": { "mode": "raw", "raw": "{ \"query\": \"{ booksByTitleSubstring(substring: \\\"great\\\") { isbn title } }\" }" },
+        "url": "http://localhost:8080/graphql"
+      }
+    },
+
+    {
+      "name": "2.2  No match substring (Negative)",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": { "mode": "raw", "raw": "{ \"query\": \"{ booksByTitleSubstring(substring: \\\"!!!!\\\") { isbn title } }\" }" },
+        "url": "http://localhost:8080/graphql"
+      }
+    },
+
+    {
+      "name": "2.3 Missing substring (Negative)",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": { "mode": "raw", "raw": "{ \"query\": \"{ booksByTitleSubstring { isbn title } }\" }" },
+        "url": "http://localhost:8080/graphql"
+      }
+    },
+
+    {
+      "name": "3.1 list of Authors based on a lastName (Positive)",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": { "mode": "raw", "raw": "{ \"query\": \"{ authorsByLastName(lastName: \\\"Fowler\\\") { id firstName lastName } }\" }" },
+        "url": "http://localhost:8080/graphql"
+      }
+    },
+
+    {
+      "name": "3.2 Last name not found (Negative)",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": { "mode": "raw", "raw": "{ \"query\": \"{ authorsByLastName(lastName: \\\"NoOne\\\") { id firstName lastName } }\" }" },
+        "url": "http://localhost:8080/graphql"
+      }
+    },
+
+    {
+      "name": "3.3 Missing lastName argument (Negative)",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": { "mode": "raw", "raw": "{ \"query\": \"{ authorsByLastName { id firstName lastName } }\" }" },
+        "url": "http://localhost:8080/graphql"
+      }
+    },
+
+    {
+      "name": "3.4 Missing field selection (Negative)",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": { "mode": "raw", "raw": "{ \"query\": \"{ authorsByLastName(lastName: \\\"Fowler\\\") }\" }" },
+        "url": "http://localhost:8080/graphql"
+      }
+    },
+    
+    {
+      "name": "4.1 Update an Author’s lastName based on the Author’s id (Positive)",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": { "mode": "raw", "raw": "{ \"query\": \"mutation { updateAuthorLastName(id: 1, newLastName: \\\"Johnson\\\") }\" }" },
+        "url": "http://localhost:8080/graphql"
+      }
+    },
+
+    {
+      "name": "4.2 Invalid id returns null (Negative)",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": { "mode": "raw", "raw": "{ \"query\": \"mutation { updateAuthorLastName(id: 999, newLastName: \\\"Test\\\") }\" }" },
+        "url": "http://localhost:8080/graphql"
+      }
+    },
+
+    {
+      "name": "4.3 Missing newLastName argument (Negative)",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": { "mode": "raw", "raw": "{ \"query\": \"mutation { updateAuthorLastName(id: 1) }\" }" },
+        "url": "http://localhost:8080/graphql"
+      }
+    },
+
+    {
+      "name": "5.1 Delete a Book given it’s ISBN (Positive)",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \"query\": \"mutation { deleteBookByIsbn(isbn: \\\"987654321\\\") }\" }"
+        },
+        "url": "http://localhost:8080/graphql"
+      }
+    },
+
+    {
+      "name": "5.2 ISBN Not Found (returns null) (Negative)",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \"query\": \"mutation { deleteBookByIsbn(isbn: \\\"0000000000\\\") }\" }"
+        },
+        "url": "http://localhost:8080/graphql"
+      }
+    },
+
+    {
+      "name": "5.3 Missing ISBN Argument(Negative)",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \"query\": \"mutation { deleteBookByIsbn }\" }"
+        },
+        "url": "http://localhost:8080/graphql"
+      }
+    },
+
+    {
+      "name": "5.4 Invalid ISBN Type (number)(Negative)",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \"query\": \"mutation { deleteBookByIsbn(isbn: 12345) }\" }"
+        },
+        "url": "http://localhost:8080/graphql"
+      }
+    },
+
+    {
+      "name": "6.1 List of all Book titles written by Authors with a given first name.(Positive)",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \"query\": \"{ bookTitlesByAuthorFirstName(firstName: \\\"Robert\\\") }\" }"
+        },
+        "url": "http://localhost:8080/graphql"
+      }
+    },
+
+    {
+      "name": "6.2 Author Exists but Has No Books(Positive)",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \"query\": \"{ bookTitlesByAuthorFirstName(firstName: \\\"NewAuthor\\\") }\" }"
+        },
+        "url": "http://localhost:8080/graphql"
+      }
+    },
+
+    {
+      "name": "6.3 Author First Name Not Found(Negative)",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \"query\": \"{ bookTitlesByAuthorFirstName(firstName: \\\"XYZ\\\") }\" }"
+        },
+        "url": "http://localhost:8080/graphql"
+      }
+    },
+
+    {
+      "name": "6.4 Missing firstName Argument (Negative)",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \"query\": \"{ bookTitlesByAuthorFirstName }\" }"
+        },
+        "url": "http://localhost:8080/graphql"
+      }
+    }
+
+  ]
 }
